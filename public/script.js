@@ -15,7 +15,8 @@ $(document).ready(function (){
 	    $('#name').text(name);
 	    firebase.database().ref(user.uid).update({
 	      name: user.displayName,
-	      image: user.photoURL
+	      image: user.photoURL,
+	      status: "inactive"
 	    });
 	  } else {
 		console.log("Client unauthenticated.")
