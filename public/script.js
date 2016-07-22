@@ -55,7 +55,7 @@ function getMahLocation() {
 		      	var matchLat = childSnapshot.val().latitude;
 		      	var matchLong = childSnapshot.val().longitude;
 		      	console.log(matchLat + ", " + matchLong);
-		      	if (matchLat && matchLong && getDistance(matchLat, matchLong, locs[0], locs[1]) < 10 
+		      	if (matchLat && matchLong && getDistance(matchLat, matchLong, locs[0], locs[1]) < 0.5 
 		      		&& user.uid != childSnapshot.key
 		      	 	&& childSnapshot.val().status == "active") {
 		      			//COMPARE FOR SIMALARITY KEEP TRACK OF MOST SIMILAR
