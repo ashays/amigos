@@ -6,16 +6,16 @@
 }
 
 body {
-	font-family: 'Questrial', sans-serif;
-	margin: 5px;
-	text-align: center;
-	background: #EEE;
-	color: #8B1E47;
-	border: 5px solid;
+    font-family: 'Questrial', sans-serif;
+    margin: 5px;
+    text-align: center;
+    background: #EEE;
+    color: #8B1E47;
+    border: 5px solid;
 }
 
 h1 {
-	font-family: 'Dancing Script', cursive;
+    font-family: 'Dancing Script', cursive;
 }
 
 .title h1 {
@@ -34,6 +34,9 @@ h1 {
     cursor: pointer;
     transition: .3s all;
     padding: 10px;
+    background: #8b1e47;
+    color: #fff;
+    margin-top: 10px;
 }
 
 .button#login {
@@ -60,3 +63,14 @@ img.matchImg {
     border-radius: 50%;
     margin: 50px;
 }
+
+span.gen {
+    padding: 0 10px;
+    display: block;
+}
+
+span#matchName {
+    font-weight: bold;
+    text-decoration: underline;
+}
+

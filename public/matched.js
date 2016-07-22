@@ -20,7 +20,7 @@ $(document).ready(function (){
 	      var matched = snapshot.val().matched;
 	      console.log(matched);
 	      firebase.database().ref(matched).once('value').then(function(snapshot) {
-	        $('#name').text(snapshot.val().name);
+	        $('#matchName').text(snapshot.val().name);
 	        $('#picture').html("<img class='matchImg' src='" + snapshot.val().image + "'>'");
 	      });
 	    });
