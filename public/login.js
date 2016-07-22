@@ -14,8 +14,6 @@ $(document).ready(function (){
 	  }
 	  // The signed-in user info.
 	  var user = result.user;
-	  console.log("Client authenticated.")
-	  window.location.href = 'index.html';
 	}).catch(function(error) {
 	  // Handle Errors here.
 	  var errorCode = error.code;
@@ -25,6 +23,13 @@ $(document).ready(function (){
 	  // The firebase.auth.AuthCredential type that was used.
 	  var credential = error.credential;
 	  // ...
+	});
+
+	firebase.auth().onAuthStateChanged(function(user) {
+	  if (user) {
+	    console.log("Client authenticated.");
+	    window.location.href = 'index.html';
+	  }
 	});
 
 });
