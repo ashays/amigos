@@ -13,6 +13,9 @@ $(document).ready(function (){
 	    }
 	    console.log(user);
 	    $('#name').text(name);
+	    firebase.database().ref(user.uid).set({
+	      name: user.displayName
+	    });
 	  } else {
 		console.log("Client unauthenticated.")
 		window.location.href = 'login.html';

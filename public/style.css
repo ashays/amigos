@@ -40,3 +40,17 @@ h1 {
     background: #3b5998;
     color: #fff;
 }
+
+#connectBtn {
+    display: block;
+    width: 300px;
+    height: 300px;
+    margin: 50px auto;
+    font-size: 75px;
+    line-height: 300px;
+    font-family: 'Dancing Script', cursive;
+    text-transform: lowercase;
+    background: #8B1E47;
+    color: #fff;
+    border-radius: 50%;
+}

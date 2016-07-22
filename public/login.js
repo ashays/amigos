@@ -14,7 +14,6 @@ $(document).ready(function (){
 	  }
 	  // The signed-in user info.
 	  var user = result.user;
-	  console.log(user);
 	  console.log("Client authenticated.")
 	  window.location.href = 'index.html';
 	}).catch(function(error) {
