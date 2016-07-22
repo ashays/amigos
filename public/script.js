@@ -27,6 +27,9 @@ $(document).ready(function (){
 });
 
 function getMahLocation() {
+	$('#connectBtn').hide();
+	$('svg').show();
+	$('span').hide();
 	var locs = [];
 	var startPos;
   	var geoSuccess = function(position) {
