@@ -41,9 +41,36 @@ function getMahLocation() {
 		  	status: "active",
 		  	matched: null
 		});
+		firebase.database().ref().once('value').then(function(snapshot) {
+	    	snapshot.forEach(function(childSnapshot) {
+		    	// key will be "ada" the first time and "alan" the second time
+		      	// var matchLat = childSnapshot.child("latitude");
+		      	var matchLat = childSnapshot.val().latitude;
+		      	var matchLong = childSnapshot.val().longitude;
+		      	console.log(matchLat + ", " + matchLong);
+		      	if (matchLat && matchLong && getDistance(matchLat, matchLong, locs[0], locs[1]) < 1 
+		      		&& user.uid != childSnapshot.key
+		      	 	&& childSnapshot.val().status == "active") {
+		      			//COMPARE FOR SIMALARITY KEEP TRACK OF MOST SIMILAR
+		      			console.log("hello");
+		    	}
+				// childData will be the actual contents of the child
+				//UPDATE USERID AND MATCH ID WITH EACH OTHERS ID
+		 	});
+		});
+	  	/*if (topMatch != null) {
+	  		ref.child(userID).set({
+	  			Matched: topMatch,
+	  			status: "passive"
+	  		})
+	  		ref.child(topMatch).set({
+	  			Matched: userID,
+	  			status: "passive"
+	  		});
+
+	  	}*/
   	};
   	navigator.geolocation.getCurrentPosition(geoSuccess);
-
   	return locs;
 }
 
@@ -70,32 +97,4 @@ function meet() {
 	var topMatch = null;
 	//console.log(locs[1],locs[0]);
 
-	/*query.once("value")
-  	.then(function(snapshot) {
-    snapshot.forEach(function(childSnapshot) {
-      // key will be "ada" the first time and "alan" the second time
-      var matchLat = childSnapshot.key.child("Latitude");
-      var matchLong = childSnapshot.key.child("Longitude");
-
-      if (matchLat.exists() && matchLong.exists() && getDistance(matchLat, matchLong, locs[0], locs[1]) < .5 
-      	&& userID != childSnapshot.key
-      	 && childSnapshot.key.child("Status").compareToIgnoreCase("active")) {
-      		//COMPARE FOR SIMALARITY KEEP TRACK OF MOST SIMILAR
-      		console.log("hello");
-    }
-      // childData will be the actual contents of the child
-      //UPDATE USERID AND MATCH ID WITH EACH OTHERS ID
-  });
-});*/
-  	/*if (topMatch != null) {
-  		ref.child(userID).set({
-  			Matched: topMatch,
-  			status: "passive"
-  		})
-  		ref.child(topMatch).set({
-  			Matched: userID,
-  			status: "passive"
-  		});
-
-  	}*/
 }
