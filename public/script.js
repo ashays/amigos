@@ -13,7 +13,7 @@ $(document).ready(function (){
 	    }
 	    console.log(user);
 	    $('#name').text(name);
-	    firebase.database().ref(user.uid).set({
+	    firebase.database().ref(user.uid).update({
 	      name: user.displayName
 	    });
 	  } else {
@@ -34,13 +34,16 @@ function getMahLocation() {
 	    locs[1] = startPos.coords.longitude;
 	    console.log(startPos.coords.latitude);
   		console.log(startPos.coords.longitude);
-  		firebase.database().ref(user.uid).set({
+  		firebase.database().ref(user.uid).update({
 		    status: "active",
 		    latitude: locs[0],
 		  	longitude: locs[1],
 		  	status: "active",
 		  	matched: null
 		});
+
+  		var matches = [];
+
 		firebase.database().ref().once('value').then(function(snapshot) {
 	    	snapshot.forEach(function(childSnapshot) {
 		    	// key will be "ada" the first time and "alan" the second time
@@ -48,16 +51,38 @@ function getMahLocation() {
 		      	var matchLat = childSnapshot.val().latitude;
 		      	var matchLong = childSnapshot.val().longitude;
 		      	console.log(matchLat + ", " + matchLong);
-		      	if (matchLat && matchLong && getDistance(matchLat, matchLong, locs[0], locs[1]) < 1 
+		      	if (matchLat && matchLong && getDistance(matchLat, matchLong, locs[0], locs[1]) < 10 
 		      		&& user.uid != childSnapshot.key
 		      	 	&& childSnapshot.val().status == "active") {
 		      			//COMPARE FOR SIMALARITY KEEP TRACK OF MOST SIMILAR
 		      			console.log("hello");
+		      			console.log(childSnapshot.key);
+		      			matches.push(childSnapshot.key);
 		    	}
 				// childData will be the actual contents of the child
 				//UPDATE USERID AND MATCH ID WITH EACH OTHERS ID
 		 	});
+
+		 	if (matches.length != 0) {
+				var matchID = matches[Math.floor(Math.random()*matches.length)];
+				console.log(matchID);
+				firebase.database().ref(user.uid).update({
+				  	matched: matchID
+				});
+
+				firebase.database().ref(matchID).update({
+				  	matched: user.uid
+				});
+			} else {
+				var myMatchRef = firebase.database().ref(user.uid + '/match');
+				myMatchRef.on('child_changed', function(data) {
+					console.log(data.key);
+					console.log(data.val());
+			  		// setCommentValues(postElement, data.key, data.val().text, data.val().author);
+				});
+			}
 		});
+
 	  	/*if (topMatch != null) {
 	  		ref.child(userID).set({
 	  			Matched: topMatch,
