@@ -38,7 +38,6 @@ function getMahLocation() {
 		    status: "active",
 		    latitude: locs[0],
 		  	longitude: locs[1],
-		  	status: "active",
 		  	matched: null
 		});
 
@@ -67,14 +66,16 @@ function getMahLocation() {
 				var matchID = matches[Math.floor(Math.random()*matches.length)];
 				console.log(matchID);
 				firebase.database().ref(user.uid).update({
-				  	matched: matchID
+				  	matched: matchID,
+				  	status: "passive"
 				});
 
 				firebase.database().ref(matchID).update({
-				  	matched: user.uid
+				  	matched: user.uid,
+				  	status: "passive"
 				});
 			} else {
-				var myMatchRef = firebase.database().ref(user.uid + '/match');
+				var myMatchRef = firebase.database().ref(user.uid);
 				myMatchRef.on('child_changed', function(data) {
 					console.log(data.key);
 					console.log(data.val());
