@@ -14,7 +14,8 @@ $(document).ready(function (){
 	    console.log(user);
 	    $('#name').text(name);
 	    firebase.database().ref(user.uid).update({
-	      name: user.displayName
+	      name: user.displayName,
+	      image: user.photoURL
 	    });
 	  } else {
 		console.log("Client unauthenticated.")
@@ -74,11 +75,17 @@ function getMahLocation() {
 				  	matched: user.uid,
 				  	status: "passive"
 				});
+
+				window.location.href = 'match.html';
 			} else {
 				var myMatchRef = firebase.database().ref(user.uid);
 				myMatchRef.on('child_changed', function(data) {
-					console.log(data.key);
-					console.log(data.val());
+					// console.log(data.key);
+					firebase.database().ref(user.uid).once('value').then(function(snapshot) {
+					  var matched = snapshot.val().matched;
+					  console.log(matched);
+					  window.location.href = 'match.html';
+					});
 			  		// setCommentValues(postElement, data.key, data.val().text, data.val().author);
 				});
 			}
