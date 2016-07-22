@@ -54,3 +54,9 @@ h1 {
     color: #fff;
     border-radius: 50%;
 }
+
+img.matchImg {
+    height: 200px;
+    border-radius: 50%;
+    margin: 50px;
+}

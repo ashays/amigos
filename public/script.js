@@ -70,12 +70,10 @@ function getMahLocation() {
 				  	matched: matchID,
 				  	status: "passive"
 				});
-
 				firebase.database().ref(matchID).update({
 				  	matched: user.uid,
 				  	status: "passive"
 				});
-
 				window.location.href = 'match.html';
 			} else {
 				var myMatchRef = firebase.database().ref(user.uid);

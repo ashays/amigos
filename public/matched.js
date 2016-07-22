@@ -21,7 +21,7 @@ $(document).ready(function (){
 	      console.log(matched);
 	      firebase.database().ref(matched).once('value').then(function(snapshot) {
 	        $('#name').text(snapshot.val().name);
-	        $('#picture').text(snapshot.val().image);
+	        $('#picture').html("<img class='matchImg' src='" + snapshot.val().image + "'>'");
 	      });
 	    });
 	  } else {
